@@ -62,11 +62,19 @@ def profile(request):
 
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Task
-from .forms import TaskForm
+from .forms import TaskForm, Category
 def task_list(request):
-    """Hiển thị danh sách công việc"""
-    tasks = Task.objects.all().order_by('-created')
-    return render(request, 'task/task_list.html', {'tasks': tasks})
+    user = request.user  # ✅ Lấy user đang đăng nhập
+    category_id = request.GET.get("category", None)
+    categories = Category.objects.all()
+
+    # 🟢 Chỉ hiển thị nhiệm vụ của user hiện tại
+    tasks = Task.objects.filter(assigned_to=user)
+
+    if category_id:
+        tasks = tasks.filter(category_id=category_id)
+
+    return render(request, "task/task_list.html", {"tasks": tasks, "categories": categories})
 
 def task_create(request):
     """Thêm công việc mới"""
@@ -80,9 +88,13 @@ def task_create(request):
     return render(request, 'task/task_form.html', {'form': form})
 
 def task_complete(request, task_id):
-    """Đánh dấu công việc đã hoàn thành"""
+    """Hiển thị form xác nhận trước khi đánh dấu công việc hoàn thành"""
     task = get_object_or_404(Task, id=task_id)
-    task.mark_completed()
-    return redirect('/task_list/')
+    
+    if request.method == "POST":
+        task.mark_completed()
+        return redirect('/task_list/')
+
+    return render(request, 'task/task_complete.html', {'task': task})
 
 

@@ -41,9 +41,11 @@ class NewsForm(forms.ModelForm):
         fields = ["title", "description", "link", "image", "category"]  # Không cho user chỉnh `completed`
 
 
-
+from django import forms
+from .models import Task, Category
 
 from django import forms
+from django.contrib.auth.models import User
 from .models import Task
 
 class TaskForm(forms.ModelForm):
@@ -54,12 +56,24 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['title', 'description', 'status', 'finished']
+        fields = ['title', 'description', 'status', 'category', 'assigned_to', 'finished']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'status': forms.Select(attrs={'class': 'form-select'}),
+            'category': forms.Select(attrs={'class': 'form-select'}),
+            'assigned_to': forms.Select(attrs={'class': 'form-select'}),  # 🟢 Chọn user được giao nhiệm vụ
         }
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
 
 from django import forms
 from .models import UserProfile

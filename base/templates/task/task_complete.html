@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="text-center">Đánh dấu công việc hoàn thành</h2>
+    <div class="card shadow-lg p-4">
+        <h5 class="text-primary">{{ task.title }}</h5>
+        <p><strong>Trạng thái hiện tại:</strong> {{ task.get_status_display }}</p>
+        <p><strong>Thời gian tạo:</strong> {{ task.created|date:"d/m/Y H:i" }}</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <p>Bạn có chắc chắn muốn đánh dấu công việc này là hoàn thành?</p>
+            <button type="submit" class="btn btn-success">Xác nhận</button>
+            <a href="{% url 'base:task_list' %}" class="btn btn-secondary">Hủy</a>
+        </form>
+    </div>
+</div>
+{% endblock  %}

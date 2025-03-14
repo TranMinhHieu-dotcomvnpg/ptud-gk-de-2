@@ -14,10 +14,12 @@
       {% else %}
         <p><em>Chưa có avatar</em></p>
       {% endif %}
-      
-      <a href="{% url 'base:update_avatar' %}" class="btn btn-primary">Cập nhật avatar</a>
+      <br> </br>
+      <div>
+        <a href="{% url 'base:update_avatar' %}">Cập nhật avatar</a>
+        <br> </br>
+        <a href="{% url 'base:home' %}">Quay lại trang chủ</a>
+      </div>
     </div>
-    
-    <a href="{% url 'base:home' %}" class="btn btn-secondary">Quay lại trang chủ</a>
   </div>
 {% endblock %}

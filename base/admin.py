@@ -13,7 +13,7 @@ class NewsAdmin(admin.ModelAdmin):
 admin.site.register(News, NewsAdmin)
 
 from django.contrib import admin
-from .models import Task
+from .models import Task,Category
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
@@ -25,3 +25,7 @@ class TaskAdmin(admin.ModelAdmin):
 admin.site.site_header = "Task Management Admin"
 admin.site.site_title = "Task Admin"
 admin.site.index_title = "Quản lý Công Việc"
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)  # Hiển thị danh mục trong danh sách

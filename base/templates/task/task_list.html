@@ -1,39 +1,55 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h2>Danh sách Công Việc</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Tiêu đề</th>
-            <th>Trạng thái</th>
-            <th>Thời gian tạo</th>
-            <th>Thời gian hoàn thành</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for task in tasks %}
-        <tr>
-            <td>{{ task.title }}</td>
-            <td>{{ task.get_status_display }}</td>
-            <td>{{ task.created|date:"d/m/Y H:i" }}</td>
-            <td>
-                {% if task.finished %}
-                    {{ task.finished|date:"d/m/Y H:i" }}
-                {% else %}
-                    Chưa hoàn thành
-                {% endif %}
-            </td>
-            <td>
-                {% if task.status == "pending" %}
-                    <a href="{% url 'base:task_complete' task.id %}" class="btn btn-success">Hoàn thành</a>
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<a href="{% url 'base:home' %}" class="btn btn-secondary">Quay lại trang chủ</a>
+<h2 class="text-center my-4">Danh sách Công Việc của Bạn</h2>
 
+<div class="container">
+    <!-- Bộ lọc danh mục -->
+    <form method="get" class="mb-4">
+        <label for="category">Lọc theo danh mục:</label>
+        <select name="category" id="category" class="form-select" onchange="this.form.submit()">
+            <option value="">Tất cả</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <!-- Danh sách công việc dạng thẻ -->
+    <div class="row">
+        {% for task in tasks %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title">{{ task.title }}</h5>
+                    <p class="card-text"><strong>Trạng thái:</strong> {{ task.get_status_display }}</p>
+                    <p class="card-text"><strong>Danh mục:</strong> {{ task.category.name }}</p>
+                    <p class="card-text"><strong>Người được giao:</strong> {{ task.assigned_to.username }}</p>
+                    <p class="card-text"><strong>Thời gian tạo:</strong> {{ task.created|date:"d/m/Y H:i" }}</p>
+                    <p class="card-text">
+                        <strong>Thời gian hoàn thành:</strong>
+                        {% if task.finished %}
+                            {{ task.finished|date:"d/m/Y H:i" }}
+                        {% else %}
+                            <span class="text-danger">Chưa hoàn thành</span>
+                        {% endif %}
+                    </p>
+                    <div class="d-flex justify-content-between">
+                        {% if task.status == "pending" %}
+                            <a href="{% url 'base:task_complete' task.id %}" class="btn btn-success">Hoàn thành</a>
+                        {% endif %}
+                        <a href="{% url 'base:home' %}" class="btn btn-secondary">Quay lại</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p class="text-muted">Bạn không có công việc nào.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<a href="{% url 'base:home' %}" class="btn btn-secondary">Quay lại</a>
 {% endblock %}

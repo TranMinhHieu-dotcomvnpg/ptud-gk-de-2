@@ -1,30 +1,34 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <p>Welcom Home </p>
-    <li> <a href="#"> <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-        </form> </a> 
-    </li>
-    <li> <a href="#"> <form action="{% url 'base:news' %}">
-        {% csrf_token %}
-        <button type="submit">News</button>
-        </form> </a> 
-    </li>
-    <li> <a href="#"> <form action="{% url 'base:update_avatar' %}">
-        {% csrf_token %}
-        <button type="submit">Avatar</button>
-        </form> </a> 
-    </li>
-    <li> <a href="#"> <form action="{% url 'base:profile' %}">
-        {% csrf_token %}
-        <button type="submit">Profile</button>
-        </form> </a> 
-    </li>
-    <li> <a href="#"> <form action="{% url 'base:task_list' %}">
-        {% csrf_token %}
-        <button type="submit">Task_list</button>
-        </form> </a> 
-    </li>
+<div class='container'>
+    <p>Welcome Home </p>
+    <ul>
+        <li> <a href="#"> <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+            </form> </a> 
+        </li>
+        <li> <a href="#"> <form action="{% url 'base:news' %}">
+            {% csrf_token %}
+            <button type="submit">News</button>
+            </form> </a> 
+        </li>
+        <li> <a href="#"> <form action="{% url 'base:update_avatar' %}">
+            {% csrf_token %}
+            <button type="submit">Avatar</button>
+            </form> </a> 
+        </li>
+        <li> <a href="#"> <form action="{% url 'base:profile' %}">
+            {% csrf_token %}
+            <button type="submit">Profile</button>
+            </form> </a> 
+        </li>
+        <li> <a href="#"> <form action="{% url 'base:task_list' %}">
+            {% csrf_token %}
+            <button type="submit">Task_list</button>
+            </form> </a> 
+        </li>
+    </ul>
+</div>
 {% endblock content %}
