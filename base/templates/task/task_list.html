@@ -1,18 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="post">
-  <h2>Danh sách Công Việc</h2>
-  <a href="{% url 'base:task_create' %}" class="btn btn-primary">Thêm công việc</a>
-  <ul>
-    {% for task in tasks %}
-      <li>
-        {{ task.title }} - {{ task.get_status_display }} 
-        {% if task.status == "pending" %}
-          <a href="{% url 'task_complete' task.id %}" class="btn btn-success">Hoàn thành</a>
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
-</form>
+<h2>Danh sách Công Việc</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tiêu đề</th>
+            <th>Trạng thái</th>
+            <th>Thời gian tạo</th>
+            <th>Thời gian hoàn thành</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.get_status_display }}</td>
+            <td>{{ task.created|date:"d/m/Y H:i" }}</td>
+            <td>
+                {% if task.finished %}
+                    {{ task.finished|date:"d/m/Y H:i" }}
+                {% else %}
+                    Chưa hoàn thành
+                {% endif %}
+            </td>
+            <td>
+                {% if task.status == "pending" %}
+                    <a href="{% url 'base:task_complete' task.id %}" class="btn btn-success">Hoàn thành</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'base:home' %}" class="btn btn-secondary">Quay lại trang chủ</a>
+
 {% endblock %}

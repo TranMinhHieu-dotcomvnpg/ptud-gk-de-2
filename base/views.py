@@ -66,7 +66,7 @@ from .forms import TaskForm
 def task_list(request):
     """Hiển thị danh sách công việc"""
     tasks = Task.objects.all().order_by('-created')
-    return render(request, 'task_list.html', {'tasks': tasks})
+    return render(request, 'task/task_list.html', {'tasks': tasks})
 
 def task_create(request):
     """Thêm công việc mới"""

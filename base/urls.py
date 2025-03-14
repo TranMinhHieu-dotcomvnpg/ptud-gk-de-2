@@ -12,7 +12,7 @@ urlpatterns = [
     path('news',news,name='news'),
     path('update-avatar/', update_avatar, name='update_avatar'),
     path('profile/', profile, name='profile'), 
-    path('', task_list, name='task_list'),
+    path('task_list/', task_list, name='task_list'),
     path('new/', task_create, name='task_create'),
     path('complete/<int:task_id>/', task_complete, name='task_complete'),
 
