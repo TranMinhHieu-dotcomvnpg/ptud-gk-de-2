@@ -13,3 +13,5 @@ Bước 2: sau khi hoàn thành việc bỏ vào folder thì ta cài " pip insta
 Bước 3: Cài đặt xong, ta dùng lệnh ' cd ONTAP ' để di chuyển vào folder.
 
 Bước 4: ta thực hiện lệnh  ' python manage.py runserver ' để thực hiện việc chạy ra địa chỉ đường link để đến với trang đăng nhập/ đăng kí
+
+lưu ý: để tạo tài khoản admin. thực hiện lệnh " python manage.py createsuperuser " rồi thực hiện việc tạo tài khoản.
