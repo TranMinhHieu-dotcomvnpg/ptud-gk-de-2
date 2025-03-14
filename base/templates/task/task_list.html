@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="post">
+  <h2>Danh sách Công Việc</h2>
+  <a href="{% url 'base:task_create' %}" class="btn btn-primary">Thêm công việc</a>
+  <ul>
+    {% for task in tasks %}
+      <li>
+        {{ task.title }} - {{ task.get_status_display }} 
+        {% if task.status == "pending" %}
+          <a href="{% url 'task_complete' task.id %}" class="btn btn-success">Hoàn thành</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</form>
+{% endblock %}

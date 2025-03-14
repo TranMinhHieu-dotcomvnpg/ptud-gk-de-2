@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Thêm Công Việc</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Lưu</button>
+  </form>
+  <a href="{% url 'task_list' %}" class="btn btn-secondary">Quay lại</a>
+{% endblock %}

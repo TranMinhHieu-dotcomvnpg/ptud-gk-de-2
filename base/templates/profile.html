@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h2>Hồ sơ cá nhân</h2>
+    
+    <div class="profile-section">
+      <p><strong>Tên người dùng:</strong> {{ profile.user.username }}</p>
+      <p><strong>Email:</strong> {{ profile.user.email }}</p>
+      
+      {% if profile.avatar %}
+        <p><strong>Avatar hiện tại:</strong></p>
+        <img src="{{ profile.avatar.url }}" alt="Avatar" class="avatar-img">
+      {% else %}
+        <p><em>Chưa có avatar</em></p>
+      {% endif %}
+      
+      <a href="{% url 'base:update_avatar' %}" class="btn btn-primary">Cập nhật avatar</a>
+    </div>
+    
+    <a href="{% url 'base:home' %}" class="btn btn-secondary">Quay lại trang chủ</a>
+  </div>
+{% endblock %}

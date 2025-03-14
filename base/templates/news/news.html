@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Trang Tin Tuc</h1>
+{% for news in newss  %}
+    {{news.title}}
+    <br> </br>
+    {{news.description}}
+    <br> </br>
+    <img 
+        class= "image"
+        src="{{ news.image.url}}"   
+        alt="news.title"/>
+    <br> </br>
+    <a href="{{ news.link }}" target="_blank">{{ news.link }}</a>
+    <br> </br>
+{% endfor %}
+{% endblock  %}
